@@ -6,6 +6,6 @@ AddHandler cgi-script .cgi
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^.*$ /help.cgi [QSA,L]
-RewriteRule ^$ /help.cgi [QSA,L]
+RewriteRule ^.*$ /cgi-bin/help.cgi [QSA,L]
+RewriteRule ^$ /cgi-bin/help.cgi [QSA,L]
 

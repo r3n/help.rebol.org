@@ -1,3 +1,2 @@
 qm
-cheyenne/*
-html/help.cgi
+cgi-bin/help.cgi
