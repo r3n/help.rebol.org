@@ -1,0 +1,5 @@
+<div class="hero-unit">
+	<h1><%== form word %></h1>
+</div>
+
+<pre><%== description %></pre>
