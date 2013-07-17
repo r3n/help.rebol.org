@@ -1,0 +1,1 @@
+Don't include QM directly within the folder. You can clone [QuarterMaster](https://github.com/rgchris/QuarterMaster) to a folder outwith this repository, then call `ln -s /Where/You/Cloned/QuarterMaster qm` in this folder.

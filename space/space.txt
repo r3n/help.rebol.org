@@ -1,0 +1,1 @@
+This folder should be set to `chmod 777 ./` to allow access to its contents by any user. Be careful with local modifications to this folder—contents can be inadvertently protected from access by web users.
