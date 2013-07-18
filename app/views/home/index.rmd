@@ -12,7 +12,9 @@ The Rebol binary ships with documentation of each function's purpose,
 the allowable types of parameters and return values, and descriptive strings
 for parameters.  This information is always available with the HELP function:
 
-    (show screenshot of help being used)
+;    (show screenshot of help being used)
+
+=image http://reb4.me/x/help-help-20130717-221953.jpg "HELP"
 
 ===Launch help.rebol.org pages Direct from the Interpreter
 

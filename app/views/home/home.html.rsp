@@ -1,4 +1,4 @@
-<div class="hero-unit">
+<div class="page-header">
 	<h1><%== document/title %></h1>
 </div>
 

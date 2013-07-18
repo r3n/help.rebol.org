@@ -16,6 +16,8 @@ with: func [
 press: :rejoin
 
 ;-- Helpers
+stripe?: none
+
 feed: does [emit newline]
 
 wrap: func [text [string! block!] tag [tag! none!]][
@@ -35,7 +37,6 @@ to-attr: func ['attr [word!]][
 		press [" " form attr {="} sanitize form get :attr {"}]
 	][""]
 ]
-
 
 emit-tablerow: func [para [block!] /header /local cell][
 	foreach cell collect [
@@ -295,7 +296,7 @@ emit-fragment: func [
 ;-- Paragraph States
 initial: [
 	options: ()
-	default: continue banner?
+	default: (stripe?: true) continue banner?
 ]
 
 banner?: [
@@ -306,7 +307,6 @@ banner?: [
 		(emit "^/</div>^/<!-- document end -->^/")
 ]
 
-
 normal: [
 	fragment: (
 		feed emit emit-fragment data
@@ -314,7 +314,11 @@ normal: [
 	
 	para: (feed emit <p> emit-inline data emit </p>)
 	sect1: 
-		(feed emit <section> feed emit <div class="page-header"> emit-sect 1 data emit </div>)
+		(
+			feed
+			emit either stripe?: not stripe? [<section>][<section class="dark">]
+			feed emit emit-sect 1 data
+		)
 		in-sect1
 		(feed emit </section>)
 	sect2:
@@ -325,7 +329,7 @@ normal: [
 	sect4: (feed emit-sect 4 data)
 	bullet: bullet2: bullet3: (feed emit [<ul> newline <li>] emit-inline data) in-bul (emit [</li> newline </ul>])
 	enum: enum2: enum3: (feed emit [<ol> newline <li>] emit-inline data) in-enum (emit [</li> newline </ol>])
-	code: (feed emit [<pre><code> sanitize data </code></pre>])
+	code: (feed emit [<pre> sanitize data </pre>])
 	output: (feed emit data) ; to output html directly
 	define-term: (feed emit <dl class="short">) continue in-deflist (feed emit </dl>)
 	image: flickr: instagram: (feed emit <figure class="image">) continue media (feed emit </figure>)
@@ -395,8 +399,8 @@ normal: [
 ]
 
 in-block: inherit normal [
-	sect1: (feed emit <h1> emit-inline data emit </h1>)
-	sect2: (feed emit <h2> emit-inline data emit </h2>)
+	sect1: (feed emit <h2> emit-inline data emit </h2>)
+	sect2: (feed emit <h3> emit-inline data emit </h3>)
 	grid-in: grid-out: (raise "Grid is top-level only.")
 	cols-in: cols-out: (raise "Columns are top-level only.")
 ]
@@ -520,7 +524,7 @@ table-rows: [
 	sect4: (emit <td> emit-sect 4 data emit </td>)
 	bullet: bullet2: bullet3: (emit {<td><ul>}) continue in-bul (emit {</ul></td>})
 	enum: enum2: enum3: (emit {<td><ol>}) continue in-enum (emit {</ol></td>})
-	code: (emit [<td> <pre><code> sanitize data </code></pre> </td> newline])
+	code: (emit [<td> <pre> sanitize data </pre> </td> newline])
 	output: (emit data) ; to output html directly
 
 	define-term:

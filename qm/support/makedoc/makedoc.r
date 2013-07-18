@@ -321,7 +321,7 @@ load-emitter: use [emitter! para!][
 			either toc [
 				emit [{<a class="toc} level {" href="#} lnk {">}] emit-inline str emit [</a> newline]
 			][
-				emit [{<h} level { id="} lnk {">}] emit-inline str emit [{</h} level {>}]
+				emit [{<h} (level + 1) { id="} lnk {">}] emit-inline str emit [{</h} (level + 1) {>}]
 			]
 		]
 
