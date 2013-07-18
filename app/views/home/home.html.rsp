@@ -1,0 +1,7 @@
+<div class="hero-unit">
+	<h1><%== document/title %></h1>
+</div>
+
+<div class="row">
+<div class="offset1 span10"><%= document/render %></div>
+</div>
