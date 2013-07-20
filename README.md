@@ -1,11 +1,12 @@
 help.rebol.org
 ==============
 
-Official help website for Rebol language
+Official help website for Rebol language. Prototype currently working at http://help.revault.org/
 
-Installation
-------------
+## Test Installation Using Cheyenne
 
-Clone [QuarterMaster](https://github.com/rgchris/QuarterMaster) to computer. Call `ln -s /Where/You/Cloned/QuarterMaster qm`.
+1. Create the CGI script (as easy as `cp cgi-bin/help.txt cgi-bin/help.cgi`)
 
-Create `html/help.cgi`. HTTPD settings to follow (works with Cheyenne and Apache)
+2. Download the Cheyenne binary appropriate for your system, `chmod +x ...` the binary and run from the `cheyenne` folder.
+
+3. Try http://localhost:8080

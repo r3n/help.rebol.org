@@ -1,1 +1,3 @@
-Cheyenne binary goes here.
+To test this application using Cheyenne, place the binary in this directory, make it executable and run. It should be run from this directory so as to find the `httpd.cfg`.
+
+Note: the CGI script in `../cgi-bin` should be set up first (in that folder, do `cp help.txt help.cgi` and make any edits).
