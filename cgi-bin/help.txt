@@ -70,7 +70,7 @@ unless get-env "UNIQUE_ID" [
 ]
 
 use [rq ns][
-	ns: complement charset "/ #%"
+	ns: complement charset " #%()/[]{}"
 
 	rq: any [
 		select system/options/cgi/other-headers "HTTP_INTERNAL_REFERER"
@@ -80,11 +80,11 @@ use [rq ns][
 
 	if parse/all rq ["/" [1 25 [ns | "%3" ["C" | "E"]] | "/" opt "/"]][
 		foreach [from to][
-			"?" "%3F"
 			"+" "%2B"
+			"/" "%2F"
 			"<" "%3C"
 			">" "%3E"
-			"/" "%2F"
+			"?" "%3F"
 		][
 			replace/all next rq from to
 		]
