@@ -1,4 +1,4 @@
-Ideally the CGI script would go here, but don't know how to configure Cheyenne to do this.
+Ideally the CGI script would go here, but don't know how to configure Cheyenne to do this. At this time, it is assumed the Rebol 2 Core binary is located and executable at /usr/local/bin
 
 Note: The CGI script contains settings and should *NOT* be included in the repository. To test locally, use the following:
 --
