@@ -1,5 +1,6 @@
 <div class="page-header">
 <div class="container">
+	<div class="logo"><%! img %/assets/forklogo.png "Rebol" 160x150 %></div>
 	<h1><%== document/title %></h1>
 </div>
 </div>

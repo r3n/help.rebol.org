@@ -4,7 +4,7 @@
 <title><%== title %></title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="/s/words.css" rel="stylesheet" media="screen">
+<link href="/assets/words.css" rel="stylesheet" media="screen">
 <link href="/feeds/news.feed" type="application/atom+xml" rel="alternate" title="ReCode News Feed">
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <!-- <script src="http://code.jquery.com/jquery.js"></script> -->
