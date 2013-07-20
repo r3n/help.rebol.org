@@ -17,7 +17,7 @@ REBOL [
 		public-key: "hlp"
 		private-key: "Help, I need Somebody!"
 		session-timeout: 0:2
-		database: mysql://root@localhost/starter
+		database: none ; mysql://root@localhost/starter
 		zone: -6:00
 		post-limit: 500 ;-- not active yet; can be altered per controller/action
 		default-controller: "home"
