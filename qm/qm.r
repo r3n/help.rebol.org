@@ -1,7 +1,7 @@
 REBOL [
 	Title: "QuarterMaster"
 	Author: "Christopher Ross-Gill"
-	Version: 0.7.1
+	Version: 0.7.2
 	Notes: {Warning: Work-In-Progress - no liabilities for damage, etc.}
 	License: http://creativecommons.org/licenses/by-sa/3.0/
 	Needs: [2.7.8 shell]
@@ -3820,8 +3820,8 @@ qm/request: make system/options/cgi [
 	get-header: func [name][select other-headers form name]
 
 	clear find request-path: copy request-uri: as file! any [
+		get-header "HTTP_INTERNAL_REFERER" ; Cheyenne
 		get-env "REQUEST_URI"
-		get-header "HTTP_INTERNAL_REFERER"
 		"/"
 	] "?"
 
@@ -3924,7 +3924,7 @@ qm/request: make system/options/cgi [
 
 		body: func [/binary][
 		 	body: either all [
-				body: :input
+				body: input
 				content-length = length? body
 			][body][#{}]
 			either binary [body][to string! body]

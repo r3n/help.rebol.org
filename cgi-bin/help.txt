@@ -76,6 +76,7 @@ use [rq ns][
 	rq: any [
 		select system/options/cgi/other-headers "HTTP_INTERNAL_REFERER"
 		get-env "REQUEST_URI"
+		"word"
 	]
 	if all [
 		rq <> "/help.cgi"
@@ -88,6 +89,9 @@ use [rq ns][
 			replace/all rq from to
 		]
 		
+		remove-each [header value] system/options/cgi/other-headers [
+			header = "HTTP_INTERNAL_REFERER"
+		]
 		set-env "REQUEST_URI" join "/words/" next rq
 	]
 ]
