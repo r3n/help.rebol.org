@@ -1,7 +1,9 @@
 <div class="page-header">
+<div class="container">
 	<h1><%== document/title %></h1>
 </div>
+</div>
 
-<div class="row">
-<div class="offset1 span10"><%= document/render %></div>
+<div class="document">
+<%= document/render %>
 </div>

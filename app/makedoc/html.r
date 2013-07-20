@@ -296,31 +296,20 @@ emit-fragment: func [
 ;-- Paragraph States
 initial: [
 	options: ()
-	default: (stripe?: true) continue banner?
-]
-
-banner?: [
-	banner: (emit render/partial %templates/banner)
+	sect1: continue normal
 	default:
-		(emit {^/<!-- document begin -->^/<div class="container main">})
-		continue normal
-		(emit "^/</div>^/<!-- document end -->^/")
+		(stripe?: true feed emit [<section> <div class="container">])
+		continue preamble
+		(feed emit [</div> </section>])
 ]
 
-normal: [
+preamble: [
 	fragment: (
 		feed emit emit-fragment data
 	)
 	
 	para: (feed emit <p> emit-inline data emit </p>)
-	sect1: 
-		(
-			feed
-			emit either stripe?: not stripe? [<section>][<section class="dark">]
-			feed emit emit-sect 1 data
-		)
-		in-sect1
-		(feed emit </section>)
+	sect1: continue return
 	sect2:
 		(feed emit <section data-level="2"> feed emit-sect 2 data)
 		in-sect2
@@ -396,6 +385,18 @@ normal: [
 	group-in: in-group ; useless in normal mode, here just to enforce balanced commands
 	group-out: (raise "Unbalanced Group-Out")
 	; default: (emit [<p> uppercase/part form word 1 " Unknown</p>"])
+]
+
+normal: inherit preamble [
+	sect1:
+		(
+			feed
+			emit either stripe?: not stripe? [<section class="stripe">][<section class="stripe dark">]
+			emit <div class="container">
+			feed emit emit-sect 1 data
+		)
+		in-sect1
+		(feed emit </div> emit </section>)
 ]
 
 in-block: inherit normal [

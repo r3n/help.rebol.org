@@ -2,3 +2,11 @@
 @import url('//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css');
 /*@import url('http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic|Open+Sans:800');*/
 
+.container {max-width: 800px}
+
+@media (min-width: 420px) {
+body {margin: 0; padding: 0;}
+.container {padding: 20px}
+.stripe {padding: 2em 0;}
+.stripe.dark {background: #ddd;}
+}
