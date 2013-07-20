@@ -65,33 +65,34 @@ REBOL [
 	]
 ]
 
-; print "Content-Type: text/plain^/"
-
 unless get-env "UNIQUE_ID" [
 	set-env "UNIQUE_ID" form checksum/secure form now/precise
 ]
 
 use [rq ns][
 	ns: complement charset "/ #%"
+
 	rq: any [
 		select system/options/cgi/other-headers "HTTP_INTERNAL_REFERER"
 		get-env "REQUEST_URI"
 		"word"
 	]
-	if all [
-		rq <> "/help.cgi"
-		parse/all rq ["/" 1 25 ns]
-	][
+
+	if parse/all rq ["/" [1 25 [ns | "%3" ["C" | "E"]] | "/" opt "/"]][
 		foreach [from to][
 			"?" "%3F"
 			"+" "%2B"
+			"<" "%3C"
+			">" "%3E"
+			"/" "%2F"
 		][
-			replace/all rq from to
+			replace/all next rq from to
 		]
-		
+
 		remove-each [header value] system/options/cgi/other-headers [
 			header = "HTTP_INTERNAL_REFERER"
 		]
+
 		set-env "REQUEST_URI" join "/words/" next rq
 	]
 ]
