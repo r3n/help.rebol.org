@@ -318,7 +318,7 @@ preamble: [
 	sect4: (feed emit-sect 4 data)
 	bullet: bullet2: bullet3: (feed emit [<ul> newline <li>] emit-inline data) in-bul (emit [</li> newline </ul>])
 	enum: enum2: enum3: (feed emit [<ol> newline <li>] emit-inline data) in-enum (emit [</li> newline </ol>])
-	code: (feed emit [<pre> sanitize data </pre>])
+	code: (feed emit [<pre> sanitize detab data </pre>])
 	output: (feed emit data) ; to output html directly
 	define-term: (feed emit <dl class="short">) continue in-deflist (feed emit </dl>)
 	image: flickr: instagram: (feed emit <figure class="image">) continue media (feed emit </figure>)
