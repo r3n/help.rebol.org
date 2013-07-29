@@ -8,9 +8,7 @@ Welcome to the Rebol Help System
 
 ===Online or Offline, Rebol is here to Help
 
-The Rebol binary ships with documentation of each function's purpose,
-the allowable types of parameters and return values, and descriptive strings
-for parameters.  This information is always available with the HELP function:
+The Rebol binary ships with documentation of each function's purpose, the allowable types of parameters and return values, and descriptive strings for parameters.  This information is always available with the [HELP](%/help) function:
 
 ;    (show screenshot of help being used)
 
@@ -18,40 +16,61 @@ for parameters.  This information is always available with the HELP function:
 
 	>> help help
 	USAGE:
-	    HELP 'word
+		HELP 'word /doc
 
 	DESCRIPTION:
-	     Prints information about words and values.
-	     HELP is a function value.
+		Prints information about words and values.
+		HELP is a function value.
 
 	ARGUMENTS:
-	     word -- (Type: any-type)
+		word (any-type!)
+
+	REFINEMENTS:
+		/doc -- Open web browser to related documentation.
 
 ===Launch help.rebol.org pages Direct from the Interpreter
 
-Additional documentation, such as example code, is available here on
-help.rebol.org. If you're online you can tell the HELP command to open a 
-browser at the right place...
+Additional documentation, such as example code, is available here on help.rebol.org. If you're online you can tell the HELP command to open a browser at the right place...
 
-    (show screenshot of help command invoked to start a browser)
+;    (show screenshot of help command invoked to start a browser)
+
+	>> help/doc help
 
 ===Rebol's help facility extends to your functions, too
 
-When functions are specified in Rebol, their parameters and return types
-are defined using what is known as the "function specification dialect".
-This offers many interesting features (like defining an interface
-in a variable and reusing it whole or in part), but you can also place Rebol
-strings in certain positions:
+When functions are specified in Rebol, their parameters and return types are defined using what is known as the "function specification dialect". This offers many interesting features (like defining an interface in a variable and reusing it whole or in part), but you can also place Rebol strings in certain positions:
 
-    (show screenshot of a function definition using help strings and types)
+;    (show screenshot of a function definition using help strings and types)
 
-The interpreter stores the specification and when you request HELP
-on your function, generates a readable description:
+	tweet: func [
+		"Post a Status Update on Twitter"
+		status [string!] "Status Message (must be 140 characters or less)"
+		/as-reply "Include a reference to a prior status"
+		in-response-to [integer! issue!] "ID of prior status"
+	][
+		assert [140 >= length? status]
+		write twitter ...
+	]
 
-    (show help output when run on previous function definition)
+The interpreter stores the specification and when you request HELP on your function, generates a readable description:
 
-Rebolers are on StackOverflow Q&A and chat 24 hours a day
+;    (show help output when run on previous function definition)
 
-Rebol's friendly and enthusiastic community is worldwide, and almost
-always someone is online to answer questions.  So if something
-isn't clear from the help pages, don't hesitate to come and ask!
+	>> ? tweet
+	USAGE:
+		TWEET status /as-reply in-response-to
+
+	DESCRIPTION:
+		Post a Status Update on Twitter
+		TWEET is a function value.
+
+	ARGUMENTS:
+		status -- Status Message (must be 140 characters or less) (string!)
+
+	REFINEMENTS:
+		/as-reply -- Include a reference to a prior status
+			in-response-to -- ID of prior status (integer! issue!)
+
+Rebolers are on [StackOverflow Q&A and chat](http://rebolsource.net/go/chat-faq) 24 hours a day.
+
+Rebol's friendly and enthusiastic community is worldwide, and almost always someone is online to answer questions.  So if something isn't clear from the help pages, don't hesitate to come and ask!
