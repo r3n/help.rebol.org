@@ -1,21 +1,26 @@
 
 @import url('//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css');
+@import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700);
 /*@import url('http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic|Open+Sans:800');*/
 
+body {background: url("squairy_light.png"); background-size: 200px 200px;} /* image courtesy of subtlepatterns.com */
 .container {max-width: 800px}
 .logo {text-align: right;}
+.page-header {margin-bottom: 0; border-bottom: none;}
+pre {
+	background: rgba(153,153,153,0.3);
+	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08) inset, 0 0 40px rgba(0, 0, 0, 0.08) inset;
+/*	border-color: rgba(0,0,0,0.03);*/
+	border: none;
+	font-family: "Ubuntu Mono","Monaco","Menlo","Consolas","Courier New",monospace;
+	text-shadow: 0 1px 0 rgba(255,255,255,0.3);
+}
 
 @media (min-width: 420px) {
 body {margin: 0; padding: 0;}
+pre {font-size: 1.1em;}
 .logo img {margin-right: 10%}
 .container {padding: 20px}
 .stripe {padding: 2em 0;}
-.stripe.dark {background: #ddd;}
-}
-pre {
-	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.08) inset, 0 0 40px rgba(0, 0, 0, 0.08) inset;
-/*	border-color: #ccc;*/
-	border: none;
-	text-shadow: 0 1px 2px rgba(255,255,255,0.8);
-	background: rgba(0,0,0,0.06);
+.stripe.dark {background: rgba(0,0,0,0.13);}
 }

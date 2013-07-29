@@ -14,7 +14,18 @@ for parameters.  This information is always available with the HELP function:
 
 ;    (show screenshot of help being used)
 
-=image http://reb4.me/x/help-help-20130717-221953.jpg "HELP"
+; =image http://reb4.me/x/help-help-20130717-221953.jpg "HELP"
+
+	>> help help
+	USAGE:
+	    HELP 'word
+
+	DESCRIPTION:
+	     Prints information about words and values.
+	     HELP is a function value.
+
+	ARGUMENTS:
+	     word -- (Type: any-type)
 
 ===Launch help.rebol.org pages Direct from the Interpreter
 
