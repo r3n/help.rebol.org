@@ -5,6 +5,7 @@
 
 body {background: url("squairy_light.png"); background-size: 200px 200px;} /* image courtesy of subtlepatterns.com */
 a {color: black; background: rgba(255,255,255,0.3); border: 1px solid rgba(0,0,0,0.1); padding: 0.2em 0.4em; border-radius: 0.2em;}
+a.external {color: #0088cc; background: transparent; border: none; padding: 0;}
 .container {max-width: 800px}
 .logo {text-align: right;}
 .page-header {margin-bottom: -2em; border-bottom: none;}
