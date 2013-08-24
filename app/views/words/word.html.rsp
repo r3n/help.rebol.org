@@ -6,4 +6,5 @@
 
 <div class="container">
 <pre><%== description %></pre>
+<p>Try <%! a (join http://www.rebol.com/r3/docs/functions/ [wordify form word %.html]) %>this</a>, might work.</p>
 </div>

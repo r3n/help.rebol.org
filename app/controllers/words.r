@@ -20,6 +20,7 @@ route (word: string!) to %word [
 		] description [
 			reject 500 "Eek!"
 		]
+		require %text/wordify.r
 		description: trim/head/tail detab description
 	]
 ]
