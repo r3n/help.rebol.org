@@ -1,7 +1,7 @@
 help.rebol.org
 ==============
 
-Official help website for Rebol language. Prototype currently working at http://help.revault.org/
+Official help website for Rebol language. Prototype currently working at http://help.rebol.info/
 
 ## Test Installation Using Cheyenne
 
