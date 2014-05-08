@@ -1,9 +1,10 @@
-REBOL [
+Rebol [
 	Title: "MySQL Schema Tools"
 	Date:  8-Aug-2012
 	Author: "Christopher Ross-Gill"
 	Type: 'module
-	Exports: [schema-create schema-get]
+	Version: 0.2.0
+	Exports: [schema-create schema-get schema-init]
 ]
 
 schema-get: use [result new-lines to-key load-list][
@@ -61,37 +62,56 @@ schema-get: use [result new-lines to-key load-list][
 							to-key table 'table
 							new-lines map query-db [
 								"SHOW COLUMNS FROM ?" to-path reduce [database table]
-							] func [column /local type size][
+							] func [column /local type size options initial][
 								; probe column
 								remove-each val reduce [
 									to-key column/1
 									if column/3 = "YES" ['opt]
 									if parse/all column/2 amend [
-										(size: none)
+										(size: options: initial: none)
 										  "varchar(" copy size some digit ")"
-										  (type: 'string! size: load size)
-										| "text" (type: 'string!)
+										  (type: string! size: load size)
+										| "text" (type: string!)
+										| "tinytext" (type: string! options: 'tiny)
+										| "longtext" (type: string! options: 'long)
 										| "enum(" copy size to ")" skip
 										  (type: string! size: load-list size)
 										| "int(" copy size some digit ")"
 										  (type: integer! size: load size)
-										| "float" (type: 'decimal!)
-										| "datetime" (type: 'date!)
-										| "tinyint(1)" (type: 'logic!)
+										| "float" (type: decimal!)
+										| "decimal" opt ["(" copy size [some digit opt ["," some digit]] ")"]
+										  (type: decimal! size: any [size "10,0"] size: load replace size "," "x" options: 'precision)
+										| "datetime" (type: date!)
+										| "date" (type: date! options: 'only)
+										| "timestamp" (type: date! options: 'timestamp)
+										| "tinyint(1)" (type: logic!)
+										| "tinyint(" copy size some digit ")"
+										  (type: integer! size: load size options: 'tiny)
+										| "bigint" [
+											"(" copy size some digit ")" [
+												" unsigned" (type: integer! size: load size options: 'big-unsigned)
+												| (type: integer! size: load size options: 'big)
+											] | (type: integer! options: 'big)
+										]
 										| "varbinary(" copy size some digit ")"
-										  (type: 'any-type! size: load size)
-										| "blob" (type: 'any-type!)
+										  (type: any-type! size: load size)
+										| "blob" (type: any-type!)
 									][
-										type
+										to word! type
 									]
 									size
+									options
 									switch column/4 [
 										"PRI" ['primary]
 									]
 									switch column/6 [
 										"auto_increment" ['increment]
 									]
-									if column/5 [reduce ['init column/5]]
+									if all [
+										initial: column/5
+										initial: any [as :type initial initial]
+									]['init]
+									initial
 								][none? val]
 							]
 						]
@@ -439,5 +459,36 @@ schema-create: use [result to-key escape form-value listify][
 		]
 
 		result/out
+	]
+]
+
+schema-init: func [[catch] source [file! url!] /local target schema sql][
+	require %schema/schema.r
+	if all [
+		file? source
+		not find source "/"
+	][source: join wrt://system/schemas/ source]
+
+	target: replace copy source %.r %.sql
+
+	verify [
+		exists? source [
+			throw make error! "Cannot Find Schema"
+		]
+
+		not error? schema: try [load-schema source][
+			throw :schema
+		]
+
+		sql: schema-create schema [
+			throw make error! "Cannot Create Schema"
+		]
+
+		attempt [
+			write target sql
+			schema
+		][
+			throw make error! "Unable to save SQL"
+		]
 	]
 ]
