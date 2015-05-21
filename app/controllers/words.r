@@ -1,4 +1,4 @@
-REBOL [
+Rebol [
 	Title: "Words Controller"
 	Date: 16-Jul-2013
 	Author: "Christopher Ross-Gill"
@@ -12,16 +12,13 @@ route () to %words [
 
 route (word: string!) to %word [
 	get [
-		description: ""
-		unless call/wait/output reform [
-			system/options/boot
-			"-cq --do"
-			mold join "help " word: url-decode lowercase word
-		] description [
-			reject 500 "Eek!"
-		]
+		require %core/args.r
 		require %text/wordify.r
-		description: trim/head/tail detab description
+		description: get-args/prepped word: url-decode lowercase word
+
+		unless 'ok = first description [
+			render/status %notfound 404
+		]
 	]
 ]
 

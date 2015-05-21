@@ -1,5 +1,5 @@
 
-@import url('//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.min.css');
+@import url('//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css');
 @import url(http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700);
 /*@import url('http://fonts.googleapis.com/css?family=Noto+Sans:400,700,400italic,700italic|Open+Sans:800');*/
 
@@ -24,6 +24,7 @@ pre, code {
 blockquote {
 	border-left-color: rgba(0,0,0,0.2);
 }
+ul.unstyled.indented {padding-left: 2.2em;}
 
 @media (min-width: 420px) {
 body {margin: 0; padding: 0;}

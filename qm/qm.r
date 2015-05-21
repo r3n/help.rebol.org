@@ -1692,31 +1692,52 @@ context [
 
 	cache: []
 
-	require: know: func [[catch] location [file!] /reset /args arg /local helper][
+	require: know: func [
+		[catch]
+		location [file!] /reset /args arg
+		/local path module
+	][
 		if reset [remove/part find cache location 2]
 		any [
 			select cache location
-			if all [
-				helper: any [
-					attempt [load/header app/:location]
-					attempt [load/header root/:location]
-				]
-				helper: context compose [
-					system/script: make system/script compose/only [
-						title: helper/1/title
-						header: helper/1
-						parent: system/script
-						args: (all [arg envelop arg])
+			foreach repository reduce [app root][
+				if all [
+					exists? repository/:location
+
+					block? module: try [load/header repository/:location]
+
+					module: make object! compose [
+						system/script: make system/script compose/only [
+							title: module/1/title
+							header: module/1
+							parent: system/script
+							args: (all [arg envelop arg])
+							path: (
+								case [
+									file? repository [
+										pick split-path repository/:location 1
+									]
+
+									all [
+										url? repository
+										find/match repository wrt://
+									][
+										path: get-space wrt:// repository/:location
+										path/folder
+									]
+								]
+							)
+						]
+						header: (module)
+						system/script: system/script/parent
 					]
-					header: (helper)
-					system/script: system/script/parent
+				][
+					repend cache [location module]
+					if block? get in module/header 'exports [
+						export bind module/header/exports module
+					]
+					break/return module
 				]
-			][
-				repend cache [location helper]
-				if block? get in helper/header 'exports [
-					export bind helper/header/exports helper
-				]
-				helper
 			]
 			throw raise ["Missing support file: %" location]
 		]

@@ -1,4 +1,4 @@
-REBOL [
+Rebol [
 	Title: "Home Controller"
 	Date: 16-Jul-2013
 	Author: "Christopher Ross-Gill"
